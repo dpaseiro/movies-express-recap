@@ -79,6 +79,17 @@ movieRouter.post('/movies/edit/:id', (req, res, next) => {
 } )
 
 
+// delete
+movieRouter.post('/movies/:movieId/delete', (req, res, next) => {
+    const id = req.params.movieId;
+    Movie.findByIdAndRemove(id)
+    .then( () => {
+        res.redirect('/movies');
+    } )
+    .catch( err => console.log('Error while deleting movie: ', err));
+})
+
+
 
 
 
