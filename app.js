@@ -9,10 +9,12 @@ const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
 
+hbs.registerPartials(__dirname + '/views/partials');
+
 
 mongoose.Promise = Promise;
 mongoose
-  .connect('mongodb://localhost/movies', {useMongoClient: true})
+  .connect('mongodb://localhost/exercise-movies', {useMongoClient: true})
   .then(() => {
     console.log('Connected to Mongo!')
   }).catch(err => {
@@ -50,9 +52,12 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 app.locals.title = 'Express - Generated with IronGenerator';
 
 
-
+// routes middleware
 const index = require('./routes/index');
 app.use('/', index);
+
+const moviesRoutes = require('./routes/movies-routes');
+app.use('/', moviesRoutes);
 
 
 module.exports = app;
